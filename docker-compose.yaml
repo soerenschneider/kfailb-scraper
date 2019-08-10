@@ -1,0 +1,70 @@
+version: '3.1'
+
+services:
+
+  mountebank:
+    build:
+      context: ./testdata
+    restart: always
+    ports:
+      - 8080:8080
+    networks:
+      - kfailb
+
+  scraper:
+    image: registry.gitlab.com/soerenschneider/kfailb-scraper
+    restart: always
+    environment:
+      KFAILB_REDIS: redis
+      KFAILB_DEBUG: "false"
+      KFAILB_URLS: "[http://mountebank:8080/example_1, http://mountebank:8080/example_2, http://mountebank:8080/example_3, http://mountebank:8080/example_4, http://mountebank:8080/example_5, http://mountebank:8080/example_6]"
+    networks:
+      - kfailb
+
+  parser:
+    image: registry.gitlab.com/soerenschneider/kfailb-parser
+    restart: always
+    environment:
+      KFAILB_REDIS: redis
+    ports:
+      - 8000:5000
+    networks:
+      - kfailb
+
+  analyzer:
+    image: registry.gitlab.com/soerenschneider/k-fail-bot
+    restart: always
+    environment:
+      KFAILBOT_REDIS: redis
+      KFAILBOT_PG_HOST: db
+      KFAILBOT_PG_USER: kfailb
+      KFAILBOT_PG_PW: kfailb
+      KFAILBOT_TOKEN: "xxx"
+    networks:
+      - kfailb
+
+  redis:
+    image: redis
+    restart: always
+    ports:
+      - 6379:6379
+    networks:
+      - kfailb
+
+  db:
+    image: postgres:11-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: kfailb
+      POSTGRES_PASSWORD: kfailb
+      POSTGRES_DB: kfailbot
+    networks:
+      - kfailb
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - ./postgres/init.sql:/docker-entrypoint-initdb.d/99-kfailb.sql:Z
+
+networks:
+  kfailb:
+    driver: bridge

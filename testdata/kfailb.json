@@ -1,0 +1,234 @@
+{
+  "port": 8080,
+  "protocol": "http",
+  "stubs": [
+    {
+      "responses": [
+        {
+          "is": {
+            "statusCode": 200,
+            "body": "<%-stringify(filename, 'example_1.html') %>"
+          }
+        },
+        {
+          "is": {
+            "statusCode": 200,
+            "body": "<%-stringify(filename, 'example_2.html') %>"
+          }
+        },
+        {
+          "is": {
+            "statusCode": 200,
+            "body": "<%-stringify(filename, 'example_3.html') %>"
+          }
+        }
+      ],
+      "predicates": [
+        {
+          "and": [
+            {
+              "equals": {
+                "path": "/",
+                "method": "GET"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "responses": [
+        {
+          "is": {
+            "statusCode": 200,
+            "body": "<%-stringify(filename, 'example_1.html') %>"
+          }
+        }
+      ],
+      "predicates": [
+        {
+          "and": [
+            {
+              "equals": {
+                "path": "/example_1",
+                "method": "GET"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "responses": [
+        {
+          "is": {
+            "statusCode": 200,
+            "body": "<%-stringify(filename, 'example_2.html') %>"
+          }
+        }
+      ],
+      "predicates": [
+        {
+          "and": [
+            {
+              "equals": {
+                "path": "/example_2",
+                "method": "GET"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "responses": [
+        {
+          "is": {
+            "statusCode": 200,
+            "body": "<%-stringify(filename, 'example_3.html') %>"
+          }
+        }
+      ],
+      "predicates": [
+        {
+          "and": [
+            {
+              "equals": {
+                "path": "/example_3",
+                "method": "GET"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "responses": [
+        {
+          "is": {
+            "statusCode": 200,
+            "body": "<%-stringify(filename, 'example_4.html') %>"
+          }
+        }
+      ],
+      "predicates": [
+        {
+          "and": [
+            {
+              "equals": {
+                "path": "/example_4",
+                "method": "GET"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "responses": [
+        {
+          "is": {
+            "statusCode": 200,
+            "body": "<%-stringify(filename, 'example_5.html') %>"
+          }
+        }
+      ],
+      "predicates": [
+        {
+          "and": [
+            {
+              "equals": {
+                "path": "/example_5",
+                "method": "GET"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "responses": [
+        {
+          "is": {
+            "statusCode": 200,
+            "body": "<%-stringify(filename, 'example_6.html') %>"
+          }
+        }
+      ],
+      "predicates": [
+        {
+          "and": [
+            {
+              "equals": {
+                "path": "/example_6",
+                "method": "GET"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "responses": [
+        {
+          "is": {
+            "statusCode": 200,
+            "body": "horrayitworks"
+          }
+        }
+      ],
+      "predicates": [
+        {
+          "and": [
+            {
+              "equals": {
+                "path": "/itworks",
+                "method": "GET"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "responses": [
+        {
+          "is": {
+            "statusCode": 500,
+            "body": "unauthorized"
+          }
+        },
+        {
+          "is": {
+            "statusCode": 502,
+            "body": "denied"
+          }
+        },
+        {
+          "is": {
+            "statusCode": 502,
+            "body": "gateway error"
+          }
+        },
+        {
+          "is": {
+            "statusCode": 200,
+            "body": "horray"
+          }
+        }
+      ],
+      "predicates": [
+        {
+          "and": [
+            {
+              "equals": {
+                "path": "/retries",
+                "method": "GET"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

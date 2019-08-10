@@ -1,0 +1,7 @@
+prometheus-client
+configargparse
+redis
+requests
+beautifulsoup4
+backoff
+pytest
